@@ -12,7 +12,7 @@ We implement a Neural Network model and train it using different variants of Dee
 
 ### Network Architecture
 In order to solve this environment, we designed a Neural Network Architecture with 2 hidden fully connected linear layers (each with 64 units), with the input containing 37 units (state space dimension) and the output containing 4 units (number of actions). We apply ReLU non-linearities after each hidden linear layer.
-Additionally, we also implemented a Dueling Network architecture with two separate streams - one to model the value of each state and one to model the advantage of each (state, action) pair (where advantage is defined as the difference between the state value and Q-value `A(s, a) = V(s) - Q(s, a)`). The Dueling Network architecture also has 2 hidden layers, one of which is shared between the two streams and the other is applied separately within each stream. The value and advantage streams are combined in the output using the following formula (proposed in [3]):
+Additionally, we also implemented a Dueling Network architecture with two separate streams - one to model the value of each state and one to model the advantage of each (state, action) pair (where advantage is defined as the difference between the state value and the Q-value `A(s, a) = V(s) - Q(s, a)`). The Dueling Network architecture also has 2 hidden layers, one of which is shared between the two streams and the other is applied separately within each stream. The value and advantage streams are combined in the output using the following formula (proposed in [3]):
 `output = value + advantage - mean_advantage`
 
 ### DRL Algorithms
@@ -49,7 +49,7 @@ There are a number of ideas we could explore to further improve the training spe
 
 ### References
 
-[1] [Human-level control through deep reinforcement learning, Mnih](https://web.stanford.edu/class/psych209/Readings/MnihEtAlHassibis15NatureControlDeepRL.pdf)
-[2] [Deep Reinforcement Learning with Double Q-learning (arxiv), van Hasselt)](https://arxiv.org/abs/1509.06461)
-[3] [Dueling Network Architectures for Deep Reinforcement Learning (arxiv), Wang](https://arxiv.org/abs/1511.06581)
-[4] [Prioritized Experience Replay (arxiv), Schaul](https://arxiv.org/abs/1511.05952)
+* [1] [Human-level control through deep reinforcement learning, Mnih](https://web.stanford.edu/class/psych209/Readings/MnihEtAlHassibis15NatureControlDeepRL.pdf)
+* [2] [Deep Reinforcement Learning with Double Q-learning (arxiv), van Hasselt)](https://arxiv.org/abs/1509.06461)
+* [3] [Dueling Network Architectures for Deep Reinforcement Learning (arxiv), Wang](https://arxiv.org/abs/1511.06581)
+* [4] [Prioritized Experience Replay (arxiv), Schaul](https://arxiv.org/abs/1511.05952)
