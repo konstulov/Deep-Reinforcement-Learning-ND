@@ -13,18 +13,18 @@ We implement a Neural Network model and train it using different variants of Dee
 ### Network Architecture
 In order to solve this environment, we designed a Neural Network Architecture with 2 hidden fully connected linear layers (each with 64 units), with the input containing 37 units (state space dimension) and the output containing 4 units (number of actions). We apply ReLU non-linearities after each hidden linear layer.
 Additionally, we also implemented a Dueling Network architecture with two separate streams - one to model the value of each state and one to model the advantage of each (state, action) pair (where advantage is defined as the difference between the state value and the Q-value `A(s, a) = V(s) - Q(s, a)`). The Dueling Network architecture also has 2 hidden layers, one of which is shared between the two streams and the other is applied separately within each stream. The value and advantage streams are combined in the output using the following formula (proposed in [3]):
-`output = value + advantage - mean_advantage`
+`output = value + advantage - mean_advantage`.
 
 ### DRL Algorithms
 We experimented with 4 variants of the Deep Q-learning algorithm to find the best approach for training the agent in this environment.
-1. Deep Q-learning (described in [1]) solves the environment by training the neural network using a combination of the online network (called `qnetwork_local` in dqn_agent.py) and the target network (`qnetwork_target` in the code). At each step in the training algorithm, the target network is applied to the next state to compute the target Q values in the loss function. At the same time, the online network is applied to the current state to get the expected Q values. MSE loss is used as the training criterion
-See code `DQN` section in `Navigation.ipynb`.
+1. Deep Q-learning (described in [1]) solves the environment by training the neural network using a combination of the online network (called `qnetwork_local` in dqn_agent.py) and the target network (`qnetwork_target` in the code). At each step of the training algorithm, the target network is applied to the next state to compute the target Q values in the loss function. At the same time, the online network is applied to the current state to get the expected Q values. MSE loss is used as the training criterion to optimize the network weights using back-propagation algorithm.
+See `DQN` section in `Navigation.ipynb`.
 2. Double DQN (described in [2]) is an improvement on Deep Q-learning algorithm, which aims to decouple the action selection and evaluation by applying the online network to select the action and the target network to compute the Q value at the next state.
-See code `Double DQN` section in `Navigation.ipynb`.
+See `Double DQN` section in `Navigation.ipynb`.
 3. Dueling DQN (described in [3]) splits the sequential design of the DQN architecture by modeling state value and state-action advantage separately in the parallel streams. These two streams are joint at the output to produce Q-values for each (state, action) pair.
-See code `Dueling DQN` section in `Navigation.ipynb`.
+See `Dueling DQN` section in `Navigation.ipynb`.
 4. Lastly we implement Dueling Double DQN by using the Dueling Network architecture in the Double Q-learning setting.
-See code `Dueling Double DQN` section in `Navigation.ipynb`.
+See `Dueling Double DQN` section in `Navigation.ipynb`.
 
 ### Training
 In all experiments, agents were trained using samples from experience replay (as described in [1]), implemented using `ReplayBuffer` in `dqn_agent.py`. During each training episode, the agent follows the epsilon-greedy policy (lines 81-84 in `dqn_agent.py`) defined by the online network (`qnetwork_local`), adds the new experiences to the replay memory, and periodically (every 4 steps) calls the DQN agent's `learn()` method to update the online network weights using a batch of randomly sampled experiences. The target network weights are updated gradually using the `soft_update()` method, which takes a linear combination of the target and local networks' weights, putting most of the weight on the previous target weights to avoid noisy oscillations at every update.
