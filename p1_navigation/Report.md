@@ -46,7 +46,7 @@ Additionally, there was a slight improvement in the training convergence speed (
 
 ![Training Progress][image1]
 
-The environment was solved in 465 episodes achieving an average score of 15.02.
+The environment was solved in 565 episodes achieving an average score of 15.02.
 
 ### Ideas for the Future
 
