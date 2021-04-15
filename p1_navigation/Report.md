@@ -27,7 +27,7 @@ See `Dueling DQN` section in `Navigation.ipynb`.
 See `Dueling Double DQN` section in `Navigation.ipynb`.
 
 ### Training
-In all experiments, agents were trained using samples from experience replay (as described in [1]), implemented using `ReplayBuffer` in `dqn_agent.py`. During each training episode, the agent follows the epsilon-greedy policy (lines 81-84 in `dqn_agent.py`) defined by the online network (`qnetwork_local`), adds the new experiences to the replay memory, and periodically (every 4 steps) calls the DQN agent's `learn()` method to update the online network weights using a batch of randomly sampled experiences. The target network weights are updated gradually using the `soft_update()` method, which takes a linear combination of the target and local networks' weights, putting most of the weight on the previous target weights to avoid noisy oscillations at every update.
+In all experiments, agents were trained using samples from experience replay memory (as described in [1]), implemented using `ReplayBuffer` in `dqn_agent.py`. During each training episode, the agent follows the epsilon-greedy policy (lines 81-84 in `dqn_agent.py`) defined by the online network (`qnetwork_local`), adds the new experiences to the replay memory, and periodically (every 4 steps) calls the DQN agent's `learn()` method to update the online network weights using a batch of randomly sampled experiences. The target network weights are updated gradually using the `soft_update()` method, which takes a linear combination of the target and local networks' weights, putting most of the weight on the previous target weights to avoid noisy oscillations at every update.
 The agent is trained for a maximum of 2000 episodes or until it reaches the desired score.
 We did not perform any search over the hyper-parameter space (e.g. batch size, epsilon decay strategy, update frequency, update weight `tau`, etc) and instead focused on trying out different DRL algorithms with the fixed hyper-parameters.
 
@@ -35,7 +35,7 @@ We did not perform any search over the hyper-parameter space (e.g. batch size, e
 
 All training results can be seen in `Navigation.ipynb` notebook.
 All of the learning algorithms achieved about similar maximum score (of ~16.5) when trained for the full 2000 episodes, although Dueling (Double) DQN seemed to perform slightly worse than (Double) DQN.
-Additionally, there was a slight improvement in the training convergence speed (to achieve the score of 15.0) going from DQN to Double/Dueling DQN. However, the best training performance (to achieve the score of 15.0) was achieved by applying the Dueling Network in Double DQN setting. The plot below shows the training progress of the Dueling Double DQN algorithm.
+Additionally, there was a slight improvement in the training convergence speed (to achieve the score of 15.0) going from DQN to Double/Dueling DQN. However, the best training performance (to achieve the score of 15.0) was achieved by applying the Dueling Network in the Double DQN setting. The plot below shows the training progress of the Dueling Double DQN algorithm.
 
 ![Training Progress][image1]
 
